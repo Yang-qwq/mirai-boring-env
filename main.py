@@ -30,16 +30,17 @@ class JsonStorage(object):
         # 然后导出内存中的数据
         json.dump(self.db_data, self.stream_io)
 
+        self.stream_io.flush()
+
     def close(self):
         self.stream_io.close()
 
 
 if __name__ == '__main__':
     bot = mirai.Mirai(
-        qq=12345678,
+        qq=int(os.getenv('APP_QQ')),
         adapter=mirai.WebSocketAdapter(
-            verify_key=os.getenv('APP_VERIFY_KEY'), host=os.getenv('APP_HOST'), port=int(os.getenv('APP_PORT')),
-            single_mode=True
+            verify_key=os.getenv('APP_VERIFY_KEY'), host=os.getenv('APP_HOST'), port=int(os.getenv('APP_PORT'))
         )
     )
 
